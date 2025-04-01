@@ -10,7 +10,7 @@ export interface IProduct {
     measureUnit: string;
 }
 
-export interface IProductListParams {
+export interface IProductFilterOptions {
     name: string;
     brand: string;
     supplier: string;
