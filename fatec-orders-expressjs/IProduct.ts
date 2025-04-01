@@ -11,8 +11,8 @@ export interface IProduct {
 }
 
 export interface IProductFilterOptions {
-    name: string;
-    brand: string;
-    supplier: string;
-    stockId: number;
+    name?: string;
+    brand?: string;
+    supplier?: string;
+    stockId?: number;
 }
