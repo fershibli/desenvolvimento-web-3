@@ -52,7 +52,7 @@ app.get("/product/:id", (req: Request, res: Response) => {
 
 // Define método Http Get que responde no path /product
 app.get("/product", (req: Request, res: Response) => {
-  const productFilter: IProductFilterOptions = req.query as any as IProductFilterOptions;
+  const productFilter = req.query as unknown as IProductFilterOptions;
 
   const { name, brand, supplier, stockId } = productFilter;
 
