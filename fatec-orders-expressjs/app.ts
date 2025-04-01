@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { IProductFilterOptions } from "./IProduct";
 
 // Importação da biblioteca express
 const express = require("express");
@@ -51,7 +52,20 @@ app.get("/product/:id", (req: Request, res: Response) => {
 
 // Define método Http Get que responde no path /product
 app.get("/product", (req: Request, res: Response) => {
-  res.status(200).json(products);
+  const productFilter: IProductFilterOptions = req.query as any as IProductFilterOptions;
+
+  const { name, brand, supplier, stockId } = productFilter;
+
+  const filteredProducts = products.filter((product) => {
+    return (
+      (name ? product.name.includes(name) : true) &&
+      (brand ? product.brand.includes(brand) : true) &&
+      (supplier ? product.supplier.includes(supplier) : true) &&
+      (stockId ? product.stockId === Number(stockId) : true)
+    );
+  });
+
+  res.status(200).json(filteredProducts);
 });
 
 app.post("/product", (req: Request, res: Response) => {
