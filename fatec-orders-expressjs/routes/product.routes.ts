@@ -77,4 +77,36 @@ router.post("/",
         res.status(201).send();
     });
 
+router.put("/:id",
+    (req: Request, res: Response) => {
+        const productId = Number(req.params.id);
+        const productIndex = products.findIndex((product) => product.id === productId);
+
+        if (productIndex === -1) {
+            res.status(404).send();
+            return;
+        }
+
+        products[productIndex] = req.body;
+
+        res.status(200).send();
+    }
+);
+
+router.delete("/:id",
+    (req: Request, res: Response) => {
+        const productId = Number(req.params.id);
+        const productIndex = products.findIndex((product) => product.id === productId);
+
+        if (productIndex === -1) {
+            res.status(404).send();
+            return;
+        }
+
+        products.splice(productIndex, 1);
+
+        res.status(204).send();
+    }
+);
+
 export default router;
