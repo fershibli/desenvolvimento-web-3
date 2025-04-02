@@ -54,26 +54,33 @@ app.get("/product/:id", (req: Request, res: Response) => {
 app.get("/product", (req: Request, res: Response) => {
   const productFilter = req.query as unknown as IProductFilterOptions;
 
-  const { name, brand, supplier, stockId } = productFilter;
+  const {
+    name: nameFilter,
+    brand: brandFilter,
+    supplier: supplierFilter,
+    stockId: stockIdFilter
+  } = productFilter;
 
-  const filteredProducts = products.filter((product) => {
+  const foundProducts = products.filter(({ name, brand, supplier, stockId }) => {
     return (
-      (name ? product.name.includes(name) : true) &&
-      (brand ? product.brand.includes(brand) : true) &&
-      (supplier ? product.supplier.includes(supplier) : true) &&
-      (stockId ? product.stockId === Number(stockId) : true)
+      (!nameFilter || name.toUpperCase().includes(nameFilter.toUpperCase())) &&
+      (!brandFilter || brand.toUpperCase().includes(brandFilter.toUpperCase())) &&
+      (!supplierFilter || supplier.toUpperCase().includes(supplierFilter.toUpperCase())) &&
+      (!stockIdFilter || stockId === Number(stockIdFilter))
     );
+  }
+  );
+
+  res.status(200).json(foundProducts);
+});
+
+app.post("/product",
+  (req: Request, res: Response) => {
+    const product = req.body;
+    products.push(product);
+
+    res.status(201).send();
   });
-
-  res.status(200).json(filteredProducts);
-});
-
-app.post("/product", (req: Request, res: Response) => {
-  const product = req.body;
-  products.push(product);
-
-  res.status(201).send();
-});
 
 // Inicia aplicação na Porta 3000
 app.listen(3000, () => {
