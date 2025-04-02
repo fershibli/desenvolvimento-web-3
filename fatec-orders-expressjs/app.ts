@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { IProductFilterOptions } from "./IProduct";
+import { IProductFilterOptions } from "./interfaces/IProduct";
 
 // Importação da biblioteca express
 const express = require("express");
