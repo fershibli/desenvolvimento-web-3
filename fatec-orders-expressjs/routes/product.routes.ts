@@ -31,7 +31,7 @@ const products = [
 ];
 
 // Define método Http Get que responde no path /product/:id
-router.get("/product/:id", (req: Request, res: Response) => {
+router.get("/:id", (req: Request, res: Response) => {
     const product = products.find((product) => {
         return product.id === Number(req.params.id);
     });
@@ -46,7 +46,7 @@ router.get("/product/:id", (req: Request, res: Response) => {
 });
 
 // Define método Http Get que responde no path /product
-router.get("/product", (req: Request, res: Response) => {
+router.get("/", (req: Request, res: Response) => {
     const productFilter = req.query as unknown as IProductFilterOptions;
 
     const {
@@ -69,10 +69,12 @@ router.get("/product", (req: Request, res: Response) => {
     res.status(200).json(foundProducts);
 });
 
-router.post("/product",
+router.post("/",
     (req: Request, res: Response) => {
         const product = req.body;
         products.push(product);
 
         res.status(201).send();
     });
+
+export default router;
