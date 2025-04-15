@@ -1,5 +1,5 @@
 import express from "express";
-import ProductRoutes from "./routes/product.routes";
+import ProductRoutes from "./src/routes/product.routes";
 
 // Criação da aplicação
 const app = express();
