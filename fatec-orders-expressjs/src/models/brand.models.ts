@@ -1,8 +1,10 @@
-import { DataTypes, Model } from "sequelize";
+import { DataTypes, Model, Optional } from "sequelize";
 import { Brand } from "../interfaces/brand.interface";
 import sequelize from "../config/database";
 
-export class BrandModel extends Model<Brand> {
+type BrandCreationalAttributes = Optional<Brand, "id">;
+
+export class BrandModel extends Model<Brand, BrandCreationalAttributes> {
     public id!: number;
     public description!: string;
 }
