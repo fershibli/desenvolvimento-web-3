@@ -10,8 +10,8 @@ router.get("/", async (req: Request, res: Response) => {
 })
 
 router.post("/", async (req: Request, res: Response) => {
-    const brand = req.body;
-    const newBrand = await create(brand.description);
+    const { description } = req.body;
+    const newBrand = await create(description);
     res.status(201).json(newBrand);
 })
 
