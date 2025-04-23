@@ -4,8 +4,8 @@ import { listAll } from '../controllers/brand.controller';
 
 const router = express.Router();
 
-router.get("/", (req: Request, res: Response) => {
-    const allBrands = listAll()
+router.get("/", async (req: Request, res: Response) => {
+    const allBrands = await listAll();
     res.status(200).json(allBrands);
 })
 
