@@ -1,6 +1,7 @@
 import express from "express";
-import ProductRoutes from "./src/routes/product.routes";
-import BrandRoutes from "./src/routes/brand.routes";
+import ProductRouter from "./src/routes/product.routes";
+import BrandRouter from "./src/routes/brand.routes";
+import { AuthRouter } from "./src/routes/auth.routes";
 
 // Criação da aplicação
 const app = express();
@@ -9,8 +10,9 @@ const app = express();
 app.use(express.json());
 
 // Routes
-app.use("/product", ProductRoutes);
-app.use("/brand", BrandRoutes);
+app.use("/product", ProductRouter);
+app.use("/brand", BrandRouter);
+app.use("/auth", AuthRouter);
 
 // Inicia aplicação na Porta 3000
 app.listen(3000, () => {
