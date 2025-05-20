@@ -1,21 +1,10 @@
 import express, { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
 import { create, listAll } from '../controllers/brand.controller';
+import { AuthorizeMiddleware } from '../middlewares/authorize.middleware';
 
 const router = express.Router();
 
-const authorize = (req: Request, res: Response, next: NextFunction) => {
-    const { authorization } = req.headers;
-    const secret = process.env.AUTH_SECRET || "s3nh4S3gur4";
-    jwt.verify(authorization || "", secret, (err) => {
-        if (err) {
-            return res.status(401).json({ message: "Invalid Token" });
-        }
-        next();
-    });
-}
-
-router.use(authorize);
+router.use(AuthorizeMiddleware);
 
 const logger = (req: Request, res: Response, next: NextFunction) => {
     console.log("LOGGED");
